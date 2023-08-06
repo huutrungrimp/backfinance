@@ -71,7 +71,7 @@ def income(request, username):
         total_pay = np.sum(total_pay)        
         income.append({
             customerName: {
-                'weekly': weekly,
+                'weekly': sorted(weekly, key=lambda x: x['week_of_year']),
                 'total_regular_hours': total_regular_hours,
                 'total_overtime': total_overtime,
                 'total_pay': total_pay                
@@ -79,6 +79,7 @@ def income(request, username):
         })
                     
     return Response(income)
+    # return Response(sorted(income, key=lambda x: x['customerName']))
 
 
 @api_view(['PUT'])
